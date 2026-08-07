@@ -37,6 +37,18 @@ public class ClienteControlador {
         return clienteRepositorio.save(cliente);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
+        return clienteRepositorio.findById(id)
+                .map(existente -> {
+                    existente.setNome(cliente.getNome());
+                    existente.setTelefone(cliente.getTelefone());
+                    existente.setEmail(cliente.getEmail());
+                    return ResponseEntity.ok(clienteRepositorio.save(existente));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         if (!clienteRepositorio.existsById(id)) {

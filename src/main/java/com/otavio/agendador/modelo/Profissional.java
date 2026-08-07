@@ -16,15 +16,15 @@ public class Profissional {
     @NotBlank(message = "O nome é obrigatório")
     private String nome;
 
-    @NotBlank(message = "A especialidade é obrigatória")
-    private String especialidade;
+    @NotBlank(message = "O telefone é obrigatório")
+    private String telefone;
 
     public Profissional() {
     }
 
-    public Profissional(String nome, String especialidade) {
+    public Profissional(String nome, String telefone) {
         this.nome = nome;
-        this.especialidade = especialidade;
+        this.telefone = telefone;
     }
 
     public Long getId() {
@@ -39,11 +39,11 @@ public class Profissional {
         this.nome = nome;
     }
 
-    public String getEspecialidade() {
-        return especialidade;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

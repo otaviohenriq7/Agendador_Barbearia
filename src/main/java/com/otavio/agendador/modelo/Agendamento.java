@@ -42,8 +42,6 @@ public class Agendamento {
         this.inicio = inicio;
     }
 
-    // Não é uma coluna no banco: é calculado a partir do inicio + duração do serviço.
-    // Usamos isso pra checar conflito de horário sem precisar guardar o fim duplicado.
     @Transient
     public LocalDateTime getFim() {
         return inicio.plusMinutes(servico.getDuracaoEmMinutos());

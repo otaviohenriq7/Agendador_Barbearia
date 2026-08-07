@@ -42,6 +42,11 @@ public class AgendamentoControlador {
         return agendamentoService.agendar(requisicao);
     }
 
+    @PutMapping("/{id}")
+    public Agendamento atualizar(@PathVariable Long id, @Valid @RequestBody NovoAgendamentoRequisicao requisicao) {
+        return agendamentoService.atualizar(id, requisicao);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         if (!agendamentoRepositorio.existsById(id)) {

@@ -37,6 +37,17 @@ public class ServicoControlador {
         return servicoRepositorio.save(servico);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Servico> atualizar(@PathVariable Long id, @Valid @RequestBody Servico servico) {
+        return servicoRepositorio.findById(id)
+                .map(existente -> {
+                    existente.setNome(servico.getNome());
+                    existente.setDuracaoEmMinutos(servico.getDuracaoEmMinutos());
+                    return ResponseEntity.ok(servicoRepositorio.save(existente));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         if (!servicoRepositorio.existsById(id)) {

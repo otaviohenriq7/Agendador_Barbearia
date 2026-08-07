@@ -4,8 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-// "record" cria uma classe imutável só com os dados, sem precisar escrever
-// getters/setters/construtor na mão — ideal pra um objeto que só carrega dados.
 public record NovoAgendamentoRequisicao(
 
         @NotNull(message = "O cliente é obrigatório")

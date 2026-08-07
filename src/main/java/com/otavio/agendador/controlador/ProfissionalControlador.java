@@ -37,6 +37,17 @@ public class ProfissionalControlador {
         return profissionalRepositorio.save(profissional);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Profissional> atualizar(@PathVariable Long id, @Valid @RequestBody Profissional profissional) {
+        return profissionalRepositorio.findById(id)
+                .map(existente -> {
+                    existente.setNome(profissional.getNome());
+                    existente.setTelefone(profissional.getTelefone());
+                    return ResponseEntity.ok(profissionalRepositorio.save(existente));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         if (!profissionalRepositorio.existsById(id)) {

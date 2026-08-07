@@ -41,7 +41,7 @@ public class AgendamentoService {
 
         Agendamento novoAgendamento = new Agendamento(cliente, profissional, servico, requisicao.inicio());
 
-        if (existeConflito(novoAgendamento)) {
+        if (existeConflito(novoAgendamento, null)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Esse profissional já tem um agendamento nesse horário");
         }
@@ -49,18 +49,39 @@ public class AgendamentoService {
         return agendamentoRepositorio.save(novoAgendamento);
     }
 
-    private boolean existeConflito(Agendamento novoAgendamento) {
-        LocalDateTime novoInicio = novoAgendamento.getInicio();
-        LocalDateTime novoFim = novoAgendamento.getFim();
+    public Agendamento atualizar(Long id, NovoAgendamentoRequisicao requisicao) {
+        Agendamento agendamento = agendamentoRepositorio.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agendamento não encontrado"));
+
+        Cliente cliente = buscarClienteOuFalhar(requisicao.clienteId());
+        Profissional profissional = buscarProfissionalOuFalhar(requisicao.profissionalId());
+        Servico servico = buscarServicoOuFalhar(requisicao.servicoId());
+
+        Agendamento candidato = new Agendamento(cliente, profissional, servico, requisicao.inicio());
+
+        if (existeConflito(candidato, id)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Esse profissional já tem um agendamento nesse horário");
+        }
+
+        agendamento.setCliente(cliente);
+        agendamento.setProfissional(profissional);
+        agendamento.setServico(servico);
+        agendamento.setInicio(requisicao.inicio());
+
+        return agendamentoRepositorio.save(agendamento);
+    }
+
+    private boolean existeConflito(Agendamento candidato, Long idParaIgnorar) {
+        LocalDateTime inicio = candidato.getInicio();
+        LocalDateTime fim = candidato.getFim();
 
         List<Agendamento> agendamentosDoProfissional =
-                agendamentoRepositorio.findByProfissionalId(novoAgendamento.getProfissional().getId());
+                agendamentoRepositorio.findByProfissionalId(candidato.getProfissional().getId());
 
-        // Dois intervalos se sobrepõem quando um começa antes do outro terminar,
-        // nos dois sentidos: novoInicio < existenteFim  E  existenteInicio < novoFim
-        return agendamentosDoProfissional.stream().anyMatch(existente ->
-                novoInicio.isBefore(existente.getFim()) && existente.getInicio().isBefore(novoFim)
-        );
+        return agendamentosDoProfissional.stream()
+                .filter(outro -> !outro.getId().equals(idParaIgnorar))
+                .anyMatch(outro -> inicio.isBefore(outro.getFim()) && outro.getInicio().isBefore(fim));
     }
 
     private Cliente buscarClienteOuFalhar(Long id) {
