@@ -125,7 +125,7 @@ async function telaServicos() {
     const servicos = await listar("servicos");
 
     desenhar(`
-        <h2>Servicos</h2>
+        <h2>Serviços</h2>
         <div class="cartao">
             <form id="formulario">
                 <div class="campo">
@@ -133,7 +133,7 @@ async function telaServicos() {
                     <input id="nome" name="nome" required>
                 </div>
                 <div class="campo">
-                    <label for="duracaoEmMinutos">Duracao (minutos)</label>
+                    <label for="duracaoEmMinutos">Duração (minutos)</label>
                     <input id="duracaoEmMinutos" name="duracaoEmMinutos" type="number" min="1" required>
                 </div>
                 <button type="submit">Cadastrar</button>
@@ -141,7 +141,7 @@ async function telaServicos() {
         </div>
         <div class="cartao">
             ${montarTabela(
-                ["Nome", "Duracao"],
+                ["Nome", "Duração"],
                 servicos,
                 function (servico) {
                     return [servico.nome, servico.duracaoEmMinutos + " min"];
@@ -178,8 +178,8 @@ async function telaAgendamentos() {
             <h2>Agendamentos</h2>
             <div class="cartao">
                 <p class="vazio">
-                    Para agendar e preciso ter ao menos um cliente, um profissional
-                    e um servico cadastrados.
+                    Para agendar é preciso ter ao menos um cliente, um profissional
+                    e um serviço cadastrados.
                 </p>
             </div>
         `);
@@ -199,11 +199,11 @@ async function telaAgendamentos() {
                     <select id="profissionalId" name="profissionalId">${montarOpcoes(profissionais)}</select>
                 </div>
                 <div class="campo">
-                    <label for="servicoId">Servico</label>
+                    <label for="servicoId">Serviço</label>
                     <select id="servicoId" name="servicoId">${montarOpcoes(servicos)}</select>
                 </div>
                 <div class="campo">
-                    <label for="inicio">Inicio</label>
+                    <label for="inicio">Início</label>
                     <input id="inicio" name="inicio" type="datetime-local" required>
                 </div>
                 <button type="submit">Agendar</button>
@@ -211,7 +211,7 @@ async function telaAgendamentos() {
         </div>
         <div class="cartao">
             ${montarTabela(
-                ["Cliente", "Profissional", "Servico", "Inicio", "Fim"],
+                ["Cliente", "Profissional", "Serviço", "Início", "Fim"],
                 agendamentos,
                 function (agendamento) {
                     return [
@@ -320,7 +320,7 @@ function configurarTela(configuracao) {
                 mostrarAviso("Salvo com sucesso", "sucesso");
             } else {
                 await atualizar(telaAtual.recurso, idEmEdicao, dados);
-                mostrarAviso("Alteracao salva", "sucesso");
+                mostrarAviso("Alteração salva", "sucesso");
             }
             await rotear();
         } catch (erro) {
@@ -334,7 +334,7 @@ function entrarEmModoEdicao(item) {
     telaAtual.preencher(item);
 
     const botaoSalvar = document.querySelector("#formulario button[type=submit]");
-    botaoSalvar.textContent = "Salvar alteracao";
+    botaoSalvar.textContent = "Salvar alteração";
 
     if (!document.getElementById("cancelar")) {
         const botaoCancelar = document.createElement("button");

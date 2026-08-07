@@ -12,7 +12,7 @@ async function lerResposta(resposta) {
 
 function extrairMensagemDeErro(corpo) {
     if (!corpo) {
-        return "Erro inesperado na requisicao";
+        return "Erro inesperado na requisição";
     }
 
     if (Array.isArray(corpo.errors) && corpo.errors.length > 0) {
@@ -23,7 +23,7 @@ function extrairMensagemDeErro(corpo) {
             .join(". ");
     }
 
-    return corpo.message || "Erro inesperado na requisicao";
+    return corpo.message || "Erro inesperado na requisição";
 }
 
 async function listar(recurso) {

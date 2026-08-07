@@ -1,0 +1,15 @@
+services:
+  banco:
+    image: postgres:17
+    container_name: agendador-banco
+    environment:
+      POSTGRES_DB: agendador
+      POSTGRES_USER: agendador
+      POSTGRES_PASSWORD: agendador
+    ports:
+      - "5432:5432"
+    volumes:
+      - dados-agendador:/var/lib/postgresql/data
+
+volumes:
+  dados-agendador:
