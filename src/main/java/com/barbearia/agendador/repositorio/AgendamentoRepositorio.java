@@ -1,6 +1,6 @@
-package com.otavio.agendador.repositorio;
+package com.barbearia.agendador.repositorio;
 
-import com.otavio.agendador.modelo.Agendamento;
+import com.barbearia.agendador.modelo.Agendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

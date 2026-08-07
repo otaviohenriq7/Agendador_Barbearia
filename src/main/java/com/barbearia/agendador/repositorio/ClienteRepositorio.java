@@ -1,6 +1,6 @@
-package com.otavio.agendador.repositorio;
+package com.barbearia.agendador.repositorio;
 
-import com.otavio.agendador.modelo.Cliente;
+import com.barbearia.agendador.modelo.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {

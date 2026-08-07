@@ -1,14 +1,14 @@
-package com.otavio.agendador.service;
+package com.barbearia.agendador.service;
 
-import com.otavio.agendador.modelo.Agendamento;
-import com.otavio.agendador.modelo.Cliente;
-import com.otavio.agendador.modelo.Profissional;
-import com.otavio.agendador.modelo.Servico;
-import com.otavio.agendador.repositorio.AgendamentoRepositorio;
-import com.otavio.agendador.repositorio.ClienteRepositorio;
-import com.otavio.agendador.repositorio.ProfissionalRepositorio;
-import com.otavio.agendador.repositorio.ServicoRepositorio;
-import com.otavio.agendador.requisicao.NovoAgendamentoRequisicao;
+import com.barbearia.agendador.modelo.Agendamento;
+import com.barbearia.agendador.modelo.Cliente;
+import com.barbearia.agendador.modelo.Profissional;
+import com.barbearia.agendador.modelo.Servico;
+import com.barbearia.agendador.repositorio.AgendamentoRepositorio;
+import com.barbearia.agendador.repositorio.ClienteRepositorio;
+import com.barbearia.agendador.repositorio.ProfissionalRepositorio;
+import com.barbearia.agendador.repositorio.ServicoRepositorio;
+import com.barbearia.agendador.requisicao.NovoAgendamentoRequisicao;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

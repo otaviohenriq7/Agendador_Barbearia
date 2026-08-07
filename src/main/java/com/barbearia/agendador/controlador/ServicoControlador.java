@@ -1,7 +1,7 @@
-package com.otavio.agendador.controlador;
+package com.barbearia.agendador.controlador;
 
-import com.otavio.agendador.modelo.Servico;
-import com.otavio.agendador.repositorio.ServicoRepositorio;
+import com.barbearia.agendador.modelo.Servico;
+import com.barbearia.agendador.repositorio.ServicoRepositorio;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

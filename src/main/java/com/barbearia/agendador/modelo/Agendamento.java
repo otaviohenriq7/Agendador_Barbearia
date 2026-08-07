@@ -1,4 +1,4 @@
-package com.otavio.agendador.modelo;
+package com.barbearia.agendador.modelo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

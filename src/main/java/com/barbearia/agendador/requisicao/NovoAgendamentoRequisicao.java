@@ -1,4 +1,4 @@
-package com.otavio.agendador.requisicao;
+package com.barbearia.agendador.requisicao;
 
 import jakarta.validation.constraints.NotNull;
 

@@ -1,4 +1,4 @@
-package com.otavio.agendador;
+package com.barbearia.agendador;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
