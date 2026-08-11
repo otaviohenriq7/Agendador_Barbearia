@@ -35,6 +35,11 @@ public class AgendamentoService {
     }
 
     public Agendamento agendar(NovoAgendamentoRequisicao requisicao) {
+        if (requisicao.inicio().isBefore(LocalDateTime.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Não é possível agendar em um horário que já passou");
+        }
+
         Cliente cliente = buscarClienteOuFalhar(requisicao.clienteId());
         Profissional profissional = buscarProfissionalOuFalhar(requisicao.profissionalId());
         Servico servico = buscarServicoOuFalhar(requisicao.servicoId());

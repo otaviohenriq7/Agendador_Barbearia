@@ -16,8 +16,29 @@ header {
 }
 
 header h1 {
-    margin: 0 0 12px 0;
+    margin: 0;
     font-size: 22px;
+}
+
+.topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+button.sair {
+    background-color: transparent;
+    color: #cbd2d9;
+    border: 1px solid #52606d;
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+button.sair:hover {
+    background-color: #323f4b;
+    color: #ffffff;
 }
 
 nav a {

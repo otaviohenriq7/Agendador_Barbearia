@@ -11,10 +11,18 @@ let telaAtual = null;
 let idEmEdicao = null;
 
 async function rotear() {
-    const rotaAtual = rotas[window.location.hash] ? window.location.hash : ROTA_PADRAO;
-
     telaAtual = null;
     idEmEdicao = null;
+
+    if (!lerToken()) {
+        mostrarMenu(false);
+        telaLogin();
+        return;
+    }
+
+    mostrarMenu(true);
+
+    const rotaAtual = rotas[window.location.hash] ? window.location.hash : ROTA_PADRAO;
 
     document.querySelectorAll("nav a").forEach(function (link) {
         link.classList.toggle("ativo", link.getAttribute("href") === rotaAtual);
@@ -24,8 +32,53 @@ async function rotear() {
         await rotas[rotaAtual]();
     } catch (erro) {
         mostrarAviso(erro.message, "erro");
+        if (erro.naoAutenticado) {
+            await rotear();
+        }
     }
 }
+
+function mostrarMenu(visivel) {
+    document.getElementById("menu").classList.toggle("escondido", !visivel);
+    document.getElementById("sair").classList.toggle("escondido", !visivel);
+}
+
+function telaLogin() {
+    desenhar(`
+        <h2>Entrar</h2>
+        <div class="cartao">
+            <form id="formulario">
+                <div class="campo">
+                    <label for="login">Login</label>
+                    <input id="login" name="login" required>
+                </div>
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input id="senha" name="senha" type="password" required>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    `);
+
+    document.getElementById("formulario").addEventListener("submit", async function (evento) {
+        evento.preventDefault();
+
+        const dados = Object.fromEntries(new FormData(evento.target));
+
+        try {
+            await entrar(dados.login, dados.senha);
+            await rotear();
+        } catch (erro) {
+            mostrarAviso(erro.message, "erro");
+        }
+    });
+}
+
+document.getElementById("sair").addEventListener("click", function () {
+    descartarToken();
+    rotear();
+});
 
 window.addEventListener("hashchange", rotear);
 window.addEventListener("load", rotear);
@@ -325,6 +378,9 @@ function configurarTela(configuracao) {
             await rotear();
         } catch (erro) {
             mostrarAviso(erro.message, "erro");
+            if (erro.naoAutenticado) {
+                await rotear();
+            }
         }
     });
 }
@@ -376,6 +432,9 @@ document.addEventListener("click", async function (evento) {
         await rotear();
     } catch (erro) {
         mostrarAviso(erro.message, "erro");
+        if (erro.naoAutenticado) {
+            await rotear();
+        }
     }
 });
 
