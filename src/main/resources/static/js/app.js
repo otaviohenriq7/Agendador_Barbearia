@@ -28,6 +28,10 @@ async function rotear() {
         link.classList.toggle("ativo", link.getAttribute("href") === rotaAtual);
     });
 
+    const temporizadorDeCarregamento = setTimeout(function () {
+        desenhar(`<p class="carregando">Carregando...</p>`);
+    }, 200);
+
     try {
         await rotas[rotaAtual]();
     } catch (erro) {
@@ -35,6 +39,8 @@ async function rotear() {
         if (erro.naoAutenticado) {
             await rotear();
         }
+    } finally {
+        clearTimeout(temporizadorDeCarregamento);
     }
 }
 
@@ -45,19 +51,21 @@ function mostrarMenu(visivel) {
 
 function telaLogin() {
     desenhar(`
-        <h2>Entrar</h2>
-        <div class="cartao">
-            <form id="formulario">
-                <div class="campo">
-                    <label for="login">Login</label>
-                    <input id="login" name="login" required>
-                </div>
-                <div class="campo">
-                    <label for="senha">Senha</label>
-                    <input id="senha" name="senha" type="password" required>
-                </div>
-                <button type="submit">Entrar</button>
-            </form>
+        <div class="login">
+            <h2>Entrar</h2>
+            <div class="cartao">
+                <form id="formulario">
+                    <div class="campo">
+                        <label for="login">Login</label>
+                        <input id="login" name="login" required>
+                    </div>
+                    <div class="campo">
+                        <label for="senha">Senha</label>
+                        <input id="senha" name="senha" type="password" required>
+                    </div>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
         </div>
     `);
 
@@ -110,7 +118,7 @@ async function telaClientes() {
                 ["Nome", "Telefone", "E-mail"],
                 clientes,
                 function (cliente) {
-                    return [cliente.nome, cliente.telefone, cliente.email || "-"];
+                    return [cliente.nome, formatarTelefone(cliente.telefone), cliente.email || "-"];
                 }
             )}
         </div>
@@ -154,7 +162,7 @@ async function telaProfissionais() {
                 ["Nome", "Telefone"],
                 profissionais,
                 function (profissional) {
-                    return [profissional.nome, profissional.telefone];
+                    return [profissional.nome, formatarTelefone(profissional.telefone)];
                 }
             )}
         </div>
@@ -420,9 +428,55 @@ document.addEventListener("click", function (evento) {
     }
 });
 
+function confirmar(texto) {
+    return new Promise(function (resolver) {
+        const caixa = document.getElementById("confirmacao");
+        const sim = document.getElementById("confirmacao-sim");
+        const nao = document.getElementById("confirmacao-nao");
+
+        document.getElementById("confirmacao-texto").textContent = texto;
+        caixa.classList.remove("escondido");
+        sim.focus();
+
+        function encerrar(resposta) {
+            caixa.classList.add("escondido");
+            sim.removeEventListener("click", aoConfirmar);
+            nao.removeEventListener("click", aoCancelar);
+            document.removeEventListener("keydown", aoTeclar);
+            resolver(resposta);
+        }
+
+        function aoConfirmar() {
+            encerrar(true);
+        }
+
+        function aoCancelar() {
+            encerrar(false);
+        }
+
+        function aoTeclar(evento) {
+            if (evento.key === "Escape") {
+                encerrar(false);
+            }
+        }
+
+        sim.addEventListener("click", aoConfirmar);
+        nao.addEventListener("click", aoCancelar);
+        document.addEventListener("keydown", aoTeclar);
+    });
+}
+
 document.addEventListener("click", async function (evento) {
     const botao = evento.target.closest("button.remover");
     if (!botao || !telaAtual) {
+        return;
+    }
+
+    const linha = botao.closest("tr");
+    const descricao = linha ? linha.querySelector("td").textContent.trim() : "este registro";
+
+    const confirmado = await confirmar(`Remover "${descricao}"? Essa ação não pode ser desfeita.`);
+    if (!confirmado) {
         return;
     }
 
@@ -449,6 +503,20 @@ function mostrarAviso(texto, tipo) {
     temporizadorDoAviso = setTimeout(function () {
         aviso.classList.add("escondido");
     }, 3500);
+}
+
+function formatarTelefone(valor) {
+    const digitos = String(valor).replace(/\D/g, "");
+
+    if (digitos.length === 11) {
+        return `(${digitos.slice(0, 2)}) ${digitos.slice(2, 7)}-${digitos.slice(7)}`;
+    }
+
+    if (digitos.length === 10) {
+        return `(${digitos.slice(0, 2)}) ${digitos.slice(2, 6)}-${digitos.slice(6)}`;
+    }
+
+    return valor;
 }
 
 function formatarDataHora(textoIso) {

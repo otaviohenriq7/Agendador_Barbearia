@@ -1,3 +1,17 @@
+:root {
+    --preto: #17130f;
+    --preto-claro: #2a231d;
+    --ambar: #c8912f;
+    --ambar-claro: #e0a942;
+    --creme: #f6f1e8;
+    --creme-escuro: #e8dfd0;
+    --texto: #2b231c;
+    --texto-fraco: #7d6b5c;
+    --branco: #fffdfa;
+    --vermelho: #a33232;
+    --verde: #3f6b45;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,82 +19,91 @@
 body {
     margin: 0;
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background-color: #f4f5f7;
-    color: #1f2933;
+    background-color: var(--creme);
+    color: var(--texto);
+    line-height: 1.5;
 }
 
 header {
-    background-color: #1f2933;
-    color: #ffffff;
-    padding: 16px 24px;
+    background-color: var(--preto);
+    color: var(--creme);
+    padding: 20px 28px 0 28px;
 }
 
 header h1 {
     margin: 0;
-    font-size: 22px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--branco);
 }
 
 .topo {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 12px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto 16px auto;
 }
 
-button.sair {
-    background-color: transparent;
-    color: #cbd2d9;
-    border: 1px solid #52606d;
-    padding: 6px 14px;
-    font-size: 13px;
-}
-
-button.sair:hover {
-    background-color: #323f4b;
-    color: #ffffff;
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 nav a {
-    color: #cbd2d9;
+    color: #b9a894;
     text-decoration: none;
-    margin-right: 20px;
-    font-size: 15px;
-    padding-bottom: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 16px;
+    border-bottom: 3px solid transparent;
 }
 
 nav a:hover {
-    color: #ffffff;
+    color: var(--branco);
 }
 
 nav a.ativo {
-    color: #ffffff;
-    border-bottom: 2px solid #3b82f6;
+    color: var(--branco);
+    border-bottom-color: var(--ambar);
 }
 
 main {
-    max-width: 900px;
-    margin: 24px auto;
-    padding: 0 16px;
+    max-width: 1000px;
+    margin: 32px auto;
+    padding: 0 20px;
 }
 
 h2 {
-    font-size: 19px;
-    margin-bottom: 16px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
 }
 
 .cartao {
-    background-color: #ffffff;
-    border: 1px solid #e4e7eb;
-    border-radius: 8px;
-    padding: 20px;
+    background-color: var(--branco);
+    border: 1px solid var(--creme-escuro);
+    border-radius: 4px;
+    padding: 24px;
     margin-bottom: 24px;
+    overflow-x: auto;
+    box-shadow: 0 1px 2px rgba(23, 19, 15, 0.04);
 }
 
 form {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 16px;
     align-items: flex-end;
 }
 
@@ -91,41 +114,105 @@ form {
 }
 
 .campo label {
-    font-size: 13px;
-    color: #616e7c;
-    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--texto-fraco);
+    margin-bottom: 6px;
 }
 
 input, select {
-    padding: 8px 10px;
-    border: 1px solid #cbd2d9;
-    border-radius: 6px;
-    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--creme-escuro);
+    border-radius: 3px;
+    background-color: var(--branco);
+    font-size: 15px;
     font-family: inherit;
+    color: var(--texto);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--ambar);
+    box-shadow: 0 0 0 3px rgba(200, 145, 47, 0.15);
 }
 
 button {
-    background-color: #3b82f6;
-    color: #ffffff;
+    background-color: var(--preto);
+    color: var(--branco);
     border: none;
-    border-radius: 6px;
-    padding: 9px 18px;
-    font-size: 14px;
+    border-radius: 3px;
+    padding: 11px 22px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #2563eb;
+    background-color: var(--preto-claro);
 }
 
 button.secundario {
     background-color: transparent;
-    color: #616e7c;
-    border: 1px solid #cbd2d9;
+    color: var(--texto-fraco);
+    border: 1px solid var(--creme-escuro);
 }
 
 button.secundario:hover {
-    background-color: #e4e7eb;
+    background-color: var(--creme);
+    color: var(--texto);
+}
+
+button.sair {
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    color: #b9a894;
+    border: 1px solid #4a3f35;
+    padding: 8px 16px;
+    font-size: 11px;
+}
+
+button.sair:hover {
+    background-color: var(--preto-claro);
+    color: var(--branco);
+    border-color: var(--ambar);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 0 12px 10px 12px;
+    border-bottom: 2px solid var(--preto);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--texto-fraco);
+    white-space: nowrap;
+}
+
+td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--creme-escuro);
+    font-size: 15px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: var(--creme);
 }
 
 td.acoes {
@@ -135,68 +222,164 @@ td.acoes {
 
 button.editar, button.remover {
     background-color: transparent;
-    padding: 4px 8px;
-    font-size: 13px;
+    padding: 6px 10px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
 }
 
 button.editar {
-    color: #2563eb;
+    color: var(--texto-fraco);
 }
 
 button.editar:hover {
-    background-color: #e6effd;
+    background-color: var(--creme-escuro);
+    color: var(--texto);
 }
 
 button.remover {
-    color: #c81e1e;
+    color: var(--vermelho);
 }
 
 button.remover:hover {
-    background-color: #fde8e8;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    text-align: left;
-    padding: 10px 8px;
-    border-bottom: 1px solid #e4e7eb;
-    font-size: 14px;
-}
-
-th {
-    color: #616e7c;
-    font-weight: 600;
-    font-size: 13px;
+    background-color: #f5e3e3;
 }
 
 .vazio {
-    color: #9aa5b1;
-    font-size: 14px;
+    color: var(--texto-fraco);
+    font-size: 15px;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.carregando {
+    color: var(--texto-fraco);
+    font-size: 15px;
+    text-align: center;
+    padding: 48px 0;
+    margin: 0;
+}
+
+.login {
+    max-width: 380px;
+    margin: 8vh auto 0 auto;
+}
+
+.login h2 {
+    text-align: center;
+}
+
+.login .cartao {
+    padding: 28px;
+}
+
+.login form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+}
+
+.login button {
+    width: 100%;
+    padding: 13px;
 }
 
 .aviso {
     position: fixed;
-    bottom: 20px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 12px 20px;
-    border-radius: 6px;
+    padding: 13px 22px;
+    border-radius: 3px;
     font-size: 14px;
-    color: #ffffff;
+    font-weight: 600;
+    color: var(--branco);
+    box-shadow: 0 4px 12px rgba(23, 19, 15, 0.2);
+    max-width: 90vw;
 }
 
 .aviso.sucesso {
-    background-color: #0e7c5a;
+    background-color: var(--verde);
 }
 
 .aviso.erro {
-    background-color: #c81e1e;
+    background-color: var(--vermelho);
+}
+
+.sobreposicao {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(23, 19, 15, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 10;
+}
+
+.dialogo {
+    background-color: var(--branco);
+    border-radius: 4px;
+    padding: 26px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 12px 32px rgba(23, 19, 15, 0.35);
+}
+
+.dialogo p {
+    margin: 0 0 24px 0;
+    font-size: 16px;
+}
+
+.dialogo-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+button.perigo {
+    background-color: var(--vermelho);
+}
+
+button.perigo:hover {
+    background-color: #8a2a2a;
 }
 
 .escondido {
     display: none;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 16px 16px 0 16px;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+
+    .topo {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    button.sair {
+        position: static;
+    }
+
+    main {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    .cartao {
+        padding: 16px;
+    }
+
+    nav a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }
